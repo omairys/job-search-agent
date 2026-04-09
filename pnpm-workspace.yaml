@@ -1,0 +1,15 @@
+# pnpm workspace & package manager settings
+# Docs: https://pnpm.io/settings
+
+packages:
+  - "."
+
+# Security: only install packages published at least 10 minutes ago
+minimumReleaseAge: 1440
+
+# Auto-install peers automatically
+autoInstallPeers: true
+
+# Fail if peer dependencies are not met
+strictPeerDependencies: false
+

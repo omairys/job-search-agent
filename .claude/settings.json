@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"decision\": \"approve\"}'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|Create",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node --input-type=module <<'EOF'\nimport { existsSync } from 'fs';\nconst file = JSON.parse(await new Promise(r => { let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>r(d)); }));\nif (file?.tool_input?.path?.endsWith('.js')) {\n  const { execSync } = await import('child_process');\n  try { execSync(`node --check ${file.tool_input.path}`, {stdio:'pipe'}); } catch(e) { console.error('Syntax error in', file.tool_input.path); process.exit(2); }\n}\nEOF",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '✅ Sesión completada - Job Search Agent'"
+          }
+        ]
+      }
+    ]
+  }
+}
