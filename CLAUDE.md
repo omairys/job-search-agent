@@ -65,3 +65,11 @@ AGENT_MODE=mock  # mock = no token spending | real = Claude API
 - try/catch on all network calls, log to logs/errors.log via logError()
 - Do not throw global errors if a source fails; continue with the others
 - Maximum 20 jobs per source, sorted by date descending
+
+## Communication Style
+
+- No greetings, no acknowledgments, no filler phrases ("Great question!", "I understand that...", "Sure!", etc.)
+- Go directly to the solution or code.
+- If something cannot be done, say so in one sentence and stop.
+- No summaries at the end of responses unless explicitly asked.
+- Prefer code over explanation unless explanation is requested.
