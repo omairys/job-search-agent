@@ -5,6 +5,7 @@ import { fetchRemotive }          from './sources/remotive.js';
 import { runJobAgent }            from './agent.js';
 import { saveJobs, markAsSeen }   from './tools/storage.js';
 import { notifyDiscord }          from './notifications/discord.js';
+// JA-008 pending: import { notifyEmail } from './notifications/email.js'
 import { logError, logAgentTool } from './tools/logger.js';
 
 // ── CLI args parsing ──────────────────────────────────────────────────────

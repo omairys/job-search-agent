@@ -1,11 +1,11 @@
 # Job Search Agent 🤖
 
-Agentic Node.js agent that searches for job postings from multiple sources,
+Agentic Node.js + TypeScript agent that searches for job postings from multiple sources,
 evaluates them with Claude using tool use, saves the relevant ones, and notifies
 via Discord.
 
 ## Stack
-- Node.js (ES Modules) + @anthropic-ai/sdk
+- Node.js + TypeScript (ES Modules, executed with `tsx`) + @anthropic-ai/sdk
 - Sources: Remotive API, LinkedIn scraping (cheerio) — JA-004 pending
 - Notifications: Discord Webhook
 - Persistence: Local JSON in `data/jobs.json`
@@ -36,48 +36,53 @@ GREENHOUSE_COMPANIES=stripe,shopify,notion,linear,vercel
 
 ```bash
 # Mock mode (no token spending, ideal for development)
-AGENT_MODE=mock node run.js
+AGENT_MODE=mock pnpm start
 
 # Real search with Claude API
-node run.js --role "Frontend Engineer" --location "Remote" --min-score 7
+pnpm start -- --role "Frontend Engineer" --location "Remote" --min-score 7
 
 # Custom search
-node run.js --role "Staff Engineer" --location "LATAM" --min-score 8 --limit 15
+pnpm start -- --role "Staff Engineer" --location "LATAM" --min-score 8 --limit 15
 
 # No notifications
-NOTIFY=none node run.js --role "Backend Engineer"
+NOTIFY=none pnpm start -- --role "Backend Engineer"
 ```
 
 ## Individual tests
 
 ```bash
 # Verify Claude API connection
-node test-connection.js
+pnpm run test:connection
 
 # Test agent in mock mode
-AGENT_MODE=mock node test-agent.js
+pnpm run test:agent
 
 # Test Remotive source
-node sources/test-remotive.js
+pnpm run test:remotive
 
 # Test Discord notification
-node notifications/test-discord.js
+pnpm run test:discord
 
 # Test storage
-node tools/test-storage.js
+pnpm run test:storage
+
+# Type check
+pnpm run typecheck
 ```
 
 ## Project structure
 
 ```
-sources/       # Connectors per source (remotive.js, linkedin.js)
-tools/         # Utilities (storage.js, logger.js)
-notifications/ # Channels (discord.js, email.js)
+sources/       # Connectors per source (remotive.ts, linkedin.ts)
+tools/         # Utilities (storage.ts, logger.ts)
+notifications/ # Channels (discord.ts, email.ts)
 data/          # jobs.json (gitignored)
 logs/          # errors.log, agent.log (gitignored)
-agent.js       # Agentic loop with tool use
-agent.mock.js  # Simulated client for development without tokens
-run.js         # Main orchestrator
+types.ts       # Shared TypeScript types (Job, SearchParams, etc.)
+agent.ts       # Agentic loop with tool use
+agent.mock.ts  # Simulated client for development without tokens
+run.ts         # Main orchestrator
+mcp-server.ts  # MCP server for Claude Desktop integration
 ```
 
 ## Claude Desktop Integration (MCP)
@@ -94,8 +99,8 @@ Add this to your `claude_desktop_config.json`
 {
   "mcpServers": {
     "job-search-agent": {
-      "command": "node",
-      "args": ["/absolute/path/to/job-search-agent/mcp-server.js"]
+      "command": "npx",
+      "args": ["tsx", "/absolute/path/to/job-search-agent/mcp-server.ts"]
     }
   }
 }
@@ -116,7 +121,7 @@ Add this to your `claude_desktop_config.json`
 ### Run the server manually
 
 ```bash
-node mcp-server.js
+pnpm run mcp
 ```
 
 The server uses stdio — Claude Desktop launches it automatically.
