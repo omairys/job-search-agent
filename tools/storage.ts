@@ -1,6 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { logError } from './logger.js';
-import { Job, SaveResult } from '../types.js';
+import { Job }        from '../agents/job-search/types.js';
+import { SaveResult } from '../types.js';
 
 const DATA_DIR  = 'data';
 const JOBS_FILE = 'data/jobs.json';

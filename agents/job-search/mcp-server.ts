@@ -6,9 +6,9 @@ import { z }                    from 'zod';
 import { fetchRemotive }                    from './sources/remotive.js';
 // JA-004 pending: import { fetchLinkedIn } from './sources/linkedin.js'
 import { runJobAgent }                      from './agent.js';
-import { saveJobs, getNewJobs }             from './tools/storage.js';
-import { notifyDiscord }                    from './notifications/discord.js';
-import { logError }                         from './tools/logger.js';
+import { saveJobs, getNewJobs }             from '../../tools/storage.js';
+import { notifyDiscord }                    from '../../notifications/discord.js';
+import { logError }                         from '../../tools/logger.js';
 
 const server = new McpServer({ name: 'job-search-agent', version: '1.0.0' });
 
@@ -104,7 +104,7 @@ server.tool(
     if (channel === 'email' || channel === 'both') {
       try {
         // @ts-ignore — JA-008 pending: email.ts does not exist yet
-        const { notifyEmail } = await import('./notifications/email.js');
+        const { notifyEmail } = await import('../../notifications/email.js');
         await notifyEmail(jobs, searchParams, summary);
       } catch (e) {
         logError('mcp-notify-email', e as Error);

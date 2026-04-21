@@ -1,7 +1,7 @@
 import Anthropic            from '@anthropic-ai/sdk';
-import { saveJobs }         from './tools/storage.js';
-import { logError }         from './tools/logger.js';
-import { logAgentTool }     from './tools/logger.js';
+import { saveJobs }         from '../../tools/storage.js';
+import { logError }         from '../../tools/logger.js';
+import { logAgentTool }     from '../../tools/logger.js';
 import { createMockClient } from './agent.mock.js';
 import { Job, SearchParams, AgentResult, Classification } from './types.js';
 

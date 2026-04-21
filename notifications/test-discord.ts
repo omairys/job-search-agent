@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { notifyDiscord } from './discord.js';
-import { Job, SearchParams, NotifySummary } from '../types.js';
+import { Job, SearchParams } from '../agents/job-search/types.js';
+import { NotifySummary }    from '../types.js';
 
 const mockJobs: Partial<Job>[] = [
   {

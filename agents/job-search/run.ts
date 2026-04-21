@@ -3,10 +3,10 @@ import { fetchRemotive }          from './sources/remotive.js';
 // JA-004 pending: import { fetchLinkedIn }  from './sources/linkedin.js'
 // JA-003 skipped: import { fetchGreenhouse } from './sources/greenhouse.js'
 import { runJobAgent }            from './agent.js';
-import { saveJobs, markAsSeen }   from './tools/storage.js';
-import { notifyDiscord }          from './notifications/discord.js';
-// JA-008 pending: import { notifyEmail } from './notifications/email.js'
-import { logError, logAgentTool } from './tools/logger.js';
+import { saveJobs, markAsSeen }   from '../../tools/storage.js';
+import { notifyDiscord }          from '../../notifications/discord.js';
+// JA-008 pending: import { notifyEmail } from '../../notifications/email.js'
+import { logError, logAgentTool } from '../../tools/logger.js';
 
 // ── CLI args parsing ──────────────────────────────────────────────────────
 function parseArgs(argv: string[]): Record<string, string> {
@@ -104,7 +104,7 @@ async function main(): Promise<void> {
   if (notifyMode === 'email' || notifyMode === 'both') {
     try {
       // @ts-ignore — JA-008 pending: email.ts does not exist yet
-      const { notifyEmail } = await import('./notifications/email.js');
+      const { notifyEmail } = await import('../../notifications/email.js');
       await notifyEmail(agentResult.relevant, searchParams, summary);
       console.log('  📧 Email: sent');
     } catch (e) {

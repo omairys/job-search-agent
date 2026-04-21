@@ -73,16 +73,18 @@ pnpm run typecheck
 ## Project structure
 
 ```
-sources/       # Connectors per source (remotive.ts, linkedin.ts)
-tools/         # Utilities (storage.ts, logger.ts)
-notifications/ # Channels (discord.ts, email.ts)
-data/          # jobs.json (gitignored)
-logs/          # errors.log, agent.log (gitignored)
-types.ts       # Shared TypeScript types (Job, SearchParams, etc.)
-agent.ts       # Agentic loop with tool use
-agent.mock.ts  # Simulated client for development without tokens
-run.ts         # Main orchestrator
-mcp-server.ts  # MCP server for Claude Desktop integration
+agents/
+  job-search/
+    sources/       # Source connectors (remotive.ts, ...)
+    agent.ts       # Agentic loop with tool use
+    agent.mock.ts  # Simulated client for development without tokens
+    run.ts         # Main orchestrator
+    mcp-server.ts  # MCP server for Claude Desktop integration
+tools/             # Shared utilities (storage.ts, logger.ts)
+notifications/     # Shared channels (discord.ts, email.ts)
+types.ts           # Shared TypeScript types (Job, SearchParams, etc.)
+data/              # jobs.json (gitignored)
+logs/              # errors.log, agent.log (gitignored)
 ```
 
 ## Claude Desktop Integration (MCP)
@@ -100,7 +102,7 @@ Add this to your `claude_desktop_config.json`
   "mcpServers": {
     "job-search-agent": {
       "command": "npx",
-      "args": ["tsx", "/absolute/path/to/job-search-agent/mcp-server.ts"]
+      "args": ["tsx", "/absolute/path/to/job-search-agent/agents/job-search/mcp-server.ts"]
     }
   }
 }

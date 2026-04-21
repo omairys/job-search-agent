@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { logError } from '../tools/logger.js';
+import { logError } from '../../../tools/logger.js';
 import { Job, SearchParams } from '../types.js';
 
 const REMOTIVE_API = 'https://remotive.com/api/remote-jobs';

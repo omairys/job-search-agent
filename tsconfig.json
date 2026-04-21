@@ -12,7 +12,7 @@
   },
   "include": [
     "*.ts",
-    "sources/**/*.ts",
+    "agents/**/*.ts",
     "tools/**/*.ts",
     "notifications/**/*.ts"
   ],

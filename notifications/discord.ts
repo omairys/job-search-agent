@@ -1,6 +1,7 @@
 import axios                      from 'axios';
 import { logError, logAgentTool } from '../tools/logger.js';
-import { Job, SearchParams, NotifySummary } from '../types.js';
+import { Job, SearchParams } from '../agents/job-search/types.js';
+import { NotifySummary }    from '../types.js';
 
 export async function notifyDiscord(jobs: Job[], searchParams: SearchParams, summary: NotifySummary): Promise<void> {
   if (!process.env.DISCORD_WEBHOOK_URL) {

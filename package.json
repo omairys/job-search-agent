@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start":           "tsx run.ts",
-    "mcp":             "tsx mcp-server.ts",
-    "dev":             "tsx run.ts",
+    "start":           "tsx agents/job-search/run.ts",
+    "mcp":             "tsx agents/job-search/mcp-server.ts",
+    "dev":             "tsx agents/job-search/run.ts",
     "build":           "tsc --noEmit",
     "typecheck":       "tsc --noEmit",
     "test:storage":    "tsx tools/test-storage.ts",
-    "test:agent":      "tsx test-agent.ts",
+    "test:agent":      "tsx agents/job-search/test-agent.ts",
     "test:discord":    "tsx notifications/test-discord.ts",
-    "test:remotive":   "tsx sources/test-remotive.ts",
-    "test:mcp":        "tsx test-mcp.ts",
-    "test:connection": "tsx test-connection.ts"
+    "test:remotive":   "tsx agents/job-search/sources/test-remotive.ts",
+    "test:mcp":        "tsx agents/job-search/test-mcp.ts",
+    "test:connection": "tsx agents/job-search/test-connection.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.86.1",
